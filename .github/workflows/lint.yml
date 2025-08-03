@@ -1,28 +1,46 @@
-
 name: Lint
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - '*'
   pull_request:
-    branches: [ main ]
+    branches:
+      - '*'
 
 jobs:
-  lint:
-    name: Super-Linter
+  frontend-lint:
+    name: Lint (Frontend)
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Run GitHub Super-Linter
+      - name: Run Super-Linter on Frontend
         uses: github/super-linter@v6
         env:
-          DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          VALIDATE_ALL_CODEBASE: true
-          DISABLE_ERRORS: false
-          FILTER_REGEX_EXCLUDE: node_modules|target
+          DEFAULT_BRANCH: main
+          VALIDATE_ALL_CODEBASE: false
+          FILTER_REGEX_INCLUDE: frontend/
+          FILTER_REGEX_EXCLUDE: node_modules
           JAVASCRIPT_DEFAULT_STYLE: prettier
           TYPESCRIPT_DEFAULT_STYLE: prettier
+
+  backend-lint:
+    name: Lint (Backend)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Super-Linter on Backend
+        uses: github/super-linter@v6
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BRANCH: main
+          VALIDATE_ALL_CODEBASE: false
+          FILTER_REGEX_INCLUDE: backend/
+          FILTER_REGEX_EXCLUDE: target
