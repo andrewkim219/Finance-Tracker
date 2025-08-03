@@ -50,4 +50,4 @@ jobs:
           cache: maven
 
       - name: Lint with Maven
-        run: mvn verify -DskipTests
+        run: mvn checkstyle:check
