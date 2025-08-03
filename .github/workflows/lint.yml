@@ -34,9 +34,6 @@ jobs:
   backend-lint:
     name: Lint (Backend)
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./backend/FinanceTracker
 
     steps:
       - name: Checkout code
@@ -45,9 +42,10 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@v3
         with:
-          java-version: '17'
+          java-version: '24'
           distribution: 'temurin'
           cache: maven
 
       - name: Lint with Maven
+        working-directory: ./backend/FinanceTracker
         run: mvn checkstyle:check
