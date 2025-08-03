@@ -1,0 +1,28 @@
+
+name: Lint
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  lint:
+    name: Super-Linter
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run GitHub Super-Linter
+        uses: github/super-linter@v6
+        env:
+          DEFAULT_BRANCH: main
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VALIDATE_ALL_CODEBASE: true
+          DISABLE_ERRORS: false
+          FILTER_REGEX_EXCLUDE: node_modules|target
+          JAVASCRIPT_DEFAULT_STYLE: prettier
+          TYPESCRIPT_DEFAULT_STYLE: prettier
