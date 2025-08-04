@@ -1,17 +1,44 @@
 import { Outlet, NavLink } from "react-router-dom";
+import Icon from '@mdi/react';
+import { mdiViewDashboard, mdiCardAccountDetails, mdiCog } from '@mdi/js';
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext.tsx";
 
 export function SideBar() {
-  return (
-    <>
-      <div className="sidebar">
-        <nav>
-          <NavLink to="/dashboard">Dashboard</NavLink>
-          <NavLink to="/accounts">Accounts</NavLink>
-          <NavLink to="/settings">Settings</NavLink>
-        </nav>
-      </div>
+    const {setIsAuthenticated, setCurrentUser} = useContext(AuthContext);
 
-      <Outlet />
-    </>
-  );
+
+    function handleLogout() {
+        setIsAuthenticated(false);
+        setCurrentUser(null);
+    }
+
+    return (
+        <>
+            <div className="sidebar">
+                <nav>
+                    <div>
+                        <Icon path={mdiViewDashboard} size={1} />
+                        <NavLink to="/app/dashboard">Dashboard</NavLink>
+                    </div>
+                    <div>
+                        <Icon path={mdiCardAccountDetails} size={1} />
+                        <NavLink to="/app/accounts">Accounts</NavLink>
+                    </div>
+                    <div>
+                        <Icon path={mdiCog} size={1} />
+                        <NavLink to="/app/settings">Settings</NavLink>
+                    </div>
+                    <div>
+                        <Icon path={mdiCog} size={1} />
+                        <NavLink to="/" onClick={handleLogout}>Log Out</NavLink>
+                    </div>
+                </nav>
+            </div>
+
+            <div className="ml-[15%]">
+                <Outlet />
+            </div>
+        </>
+    );
 }

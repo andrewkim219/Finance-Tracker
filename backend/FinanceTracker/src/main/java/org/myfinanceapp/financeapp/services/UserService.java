@@ -48,9 +48,10 @@ public class UserService {
         }
     }
 
-    public void loginUser(String username, String password) {
+    public User loginUser(String username, String password) {
         if (userRepo.findUserByUsernameAndPassword(username, password).isEmpty()) {
             throw new IllegalArgumentException("Invalid username or password.");
         }
+        return userRepo.findUserByUsernameAndPassword(username, password).get();
     }
 }

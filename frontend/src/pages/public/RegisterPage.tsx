@@ -30,9 +30,9 @@ function RegisterPage() {
   }
 
   return (
-    <>
+    <div className="auth-container">
       <InputBar onSubmit={handleRegister} type={"Register"} />
-    </>
+    </div>
   );
 }
 

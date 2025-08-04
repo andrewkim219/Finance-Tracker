@@ -41,12 +41,12 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> loginUser(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<User> loginUser(@RequestBody LoginRequest loginRequest) {
         String username = loginRequest.getUsername();
         String password = loginRequest.getPassword();
         // This is a placeholder for login logic. In a real application, you would validate the credentials.
         // For now, we will just return a success message.
-        userService.loginUser(username, password); // Example to ensure user exists, replace with actual logic.
-        return ResponseEntity.ok("User logged in successfully.");
+        User user = userService.loginUser(username, password); // Example to ensure user exists, replace with actual logic.
+        return ResponseEntity.ok(user);
     }
 }

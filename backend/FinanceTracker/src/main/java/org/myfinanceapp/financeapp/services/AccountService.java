@@ -31,11 +31,7 @@ public class AccountService {
     }
 
     public List<Account> getAllAccountsByUserId(Long userId) {
-        if (accountRepo.findAllByUserId(userId).isEmpty()) {
-            throw new IllegalArgumentException("No accounts found for this user ID.");
-        } else {
-            return accountRepo.findAllByUserId(userId);
-        }
+        return accountRepo.findAllByUserId(userId);
     }
 
     public void updateAccount(Account account) {

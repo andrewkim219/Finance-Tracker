@@ -1,4 +1,4 @@
-import "./App.css";
+
 import { Route, Routes } from "react-router-dom";
 import PublicRoute from "./utils/PublicRoute.tsx";
 import PrivateRoute from "./utils/PrivateRoute.tsx";
