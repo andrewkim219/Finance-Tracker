@@ -1,6 +1,6 @@
 import { Outlet, NavLink } from "react-router-dom";
 import Icon from '@mdi/react';
-import { mdiViewDashboard, mdiCardAccountDetails, mdiCog } from '@mdi/js';
+import { mdiViewDashboard, mdiCardAccountDetails, mdiCog, mdiLogout } from '@mdi/js';
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext.tsx";
 
@@ -30,7 +30,7 @@ export function SideBar() {
                         <NavLink to="/app/settings">Settings</NavLink>
                     </div>
                     <div>
-                        <Icon path={mdiCog} size={1} />
+                        <Icon path={mdiLogout} size={1} />
                         <NavLink to="/" onClick={handleLogout}>Log Out</NavLink>
                     </div>
                 </nav>
