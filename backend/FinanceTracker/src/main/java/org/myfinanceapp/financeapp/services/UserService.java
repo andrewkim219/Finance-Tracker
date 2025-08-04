@@ -26,6 +26,10 @@ public class UserService {
             throw new IllegalStateException("Email taken. Use a different email.");
         }
 
+        if (userRepo.findUserByUsernameAndPassword(user.getUsername(), user.getPassword()).isPresent()) {
+            throw new IllegalStateException("Username already exists. Please choose a different username.");
+        }
+
         userRepo.save(user);
     }
 
@@ -41,6 +45,12 @@ public class UserService {
             userRepo.save(user);
         } else {
             throw new RuntimeException("User not found with id: " + user.getId());
+        }
+    }
+
+    public void loginUser(String username, String password) {
+        if (userRepo.findUserByUsernameAndPassword(username, password).isEmpty()) {
+            throw new IllegalArgumentException("Invalid username or password.");
         }
     }
 }

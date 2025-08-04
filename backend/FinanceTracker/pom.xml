@@ -18,7 +18,7 @@
     <description>FinanceTracker</description>
 
     <properties>
-        <java.version>24</java.version>
+        <java.version>21</java.version>
     </properties>
 
     <dependencies>
@@ -38,7 +38,8 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <optional>true</optional>
+            <version>1.18.32</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -49,6 +50,7 @@
 
     <build>
         <plugins>
+            <!-- ✅ Checkstyle plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
@@ -69,6 +71,7 @@
                 </configuration>
             </plugin>
 
+            <!-- ✅ Spotless plugin -->
             <plugin>
                 <groupId>com.diffplug.spotless</groupId>
                 <artifactId>spotless-maven-plugin</artifactId>
@@ -88,21 +91,23 @@
                 </configuration>
             </plugin>
 
-            <!-- Compiler plugin -->
+            <!-- ✅ Compiler plugin with Lombok annotation processor -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
                 <configuration>
                     <annotationProcessorPaths>
                         <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
+                            <version>1.18.32</version>
                         </path>
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
 
-            <!-- Spring Boot plugin -->
+            <!-- ✅ Spring Boot plugin -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>

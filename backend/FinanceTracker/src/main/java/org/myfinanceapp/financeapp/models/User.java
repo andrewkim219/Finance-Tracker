@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Entity
-@Table
+@Table(name = "app_user")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

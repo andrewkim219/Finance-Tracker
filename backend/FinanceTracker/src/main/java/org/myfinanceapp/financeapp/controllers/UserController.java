@@ -1,5 +1,6 @@
 package org.myfinanceapp.financeapp.controllers;
 
+import org.myfinanceapp.financeapp.models.LoginRequest;
 import org.myfinanceapp.financeapp.models.User;
 import org.myfinanceapp.financeapp.services.UserService;
 import org.springframework.http.ResponseEntity;
@@ -21,10 +22,10 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
-    @PostMapping("/")
-    public ResponseEntity<String> addUser(@RequestBody User user) {
+    @PostMapping("/register")
+    public ResponseEntity<String> registerUser(@RequestBody User user) {
         userService.addUser(user);
-        return ResponseEntity.status(201).body("User added successfully.");
+        return ResponseEntity.status(201).body("User registered successfully.");
     }
 
     @PutMapping("/update")
@@ -37,5 +38,15 @@ public class UserController {
     public ResponseEntity<String> deleteUser(@PathVariable Long userId) {
         userService.deleteUser(userId);
         return ResponseEntity.ok("User deleted successfully.");
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<String> loginUser(@RequestBody LoginRequest loginRequest) {
+        String username = loginRequest.getUsername();
+        String password = loginRequest.getPassword();
+        // This is a placeholder for login logic. In a real application, you would validate the credentials.
+        // For now, we will just return a success message.
+        userService.loginUser(username, password); // Example to ensure user exists, replace with actual logic.
+        return ResponseEntity.ok("User logged in successfully.");
     }
 }
