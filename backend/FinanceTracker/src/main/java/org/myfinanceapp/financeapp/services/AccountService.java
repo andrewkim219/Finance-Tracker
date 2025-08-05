@@ -16,6 +16,12 @@ public class AccountService {
     private final UserService userService;
     private final EntityDtoMapper mapper;
 
+
+    public Account getAccountEntityById(Long id) {
+        return accountRepo.findAccountById(id)
+        .orElseThrow(() -> new IllegalArgumentException("Account with this ID does not exist."));
+}
+
     public AccountService(AccountRepo accountRepo, UserService userService, EntityDtoMapper mapper) {
         this.accountRepo = accountRepo;
         this.userService = userService;

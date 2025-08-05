@@ -1,9 +1,13 @@
 package org.myfinanceapp.financeapp.mappers;
 
 import org.myfinanceapp.financeapp.models.DTO.AccountDTO;
+import org.myfinanceapp.financeapp.models.DTO.TransactionDTO;
 import org.myfinanceapp.financeapp.models.DTO.UserDTO;
+import org.myfinanceapp.financeapp.models.DTO.CategoryDTO;
 import org.myfinanceapp.financeapp.models.Account;
+import org.myfinanceapp.financeapp.models.Transaction;
 import org.myfinanceapp.financeapp.models.User;
+import org.myfinanceapp.financeapp.models.Category;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -35,6 +39,37 @@ public class EntityDtoMapper {
             dto.setAccounts(accountDTOs);
         }
 
+        return dto;
+    }
+
+    public TransactionDTO toTransactionDto(Transaction transaction) {
+        if (transaction == null) return null;
+
+        TransactionDTO dto = new TransactionDTO();
+        dto.setId(transaction.getId());
+        dto.setDescription(transaction.getDescription());
+        dto.setAmount(transaction.getAmount());
+        dto.setDate(transaction.getDate());
+        dto.setType(transaction.getType());
+
+        if (transaction.getAccount() != null) {
+            dto.setAccountId(transaction.getAccount().getId());
+        }
+
+        if (transaction.getCategory() != null) {
+            dto.setCategoryId(transaction.getCategory().getId());
+        }
+
+        return dto;
+    }
+
+    public CategoryDTO toCategoryDto(Category category) {
+        if (category == null) return null;
+
+        CategoryDTO dto = new CategoryDTO();
+        dto.setId(category.getId());
+        dto.setName(category.getName());
+        dto.setType(category.getType());
         return dto;
     }
 }
