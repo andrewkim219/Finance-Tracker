@@ -6,6 +6,6 @@ export interface AccountType {
   accountName: string;
   accountType: string;
   balance: number;
-  user?: UserType;
+  userId?: UserType;
   transactions?: TransactionType[];
 }

@@ -10,8 +10,8 @@ const API_AUTH_URL = `${API_BASE_URL}/api/v1/account`;
 export function useAddAccountApi() {
     const { data, isLoading, isError, post } = useCreateAsync();
 
-    async function addAccount({ accountName, accountType, balance }: AccountType) {
-        await post(`${API_AUTH_URL}`, { accountName, accountType, balance });
+    async function addAccount({ accountName, accountType, balance, userId }: AccountType) {
+        await post(`${API_AUTH_URL}/add`, { accountName, accountType, balance, userId });
     }
 
     return { data, isLoading, isError, addAccount };

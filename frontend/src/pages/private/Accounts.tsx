@@ -5,12 +5,13 @@ import { AccountCard } from "../../components/AccountCard.tsx";
 import type { AccountType } from "../../types/AccountType.ts";
 import { useLocation } from "react-router-dom";
 import { useModal } from "../../context/ModalContext.tsx";
+import AccountModal from "../../components/AccountModal.tsx";
 
 export function Accounts() {
     const { fetchAllAccountsForUserApi } = useGetAllAccountsForUserApi();
     const [accounts, setAccounts] = useLocalStorage("accounts", []);
     const location = useLocation();
-    const { openModal } = useModal();
+    const { openModal, closeModal } = useModal();
 
     useEffect(() => {
         async function loadAccounts() {
@@ -30,11 +31,16 @@ export function Accounts() {
         }
     }
 
+    async function handleCloseModal() {
+        closeModal();
+        await fetchAccounts(); // Refresh accounts after closing modal
+    }
+
+
     const handleAddAccount = () => {
         openModal(
             <div>
-                <h2>Add New Account</h2>
-                {/* Account form would go here */}
+                <AccountModal onClose={handleCloseModal} />
             </div>
         );
     };
@@ -51,7 +57,7 @@ export function Accounts() {
                         <AccountCard
                             key={account.id}
                             name={account.accountName}
-                            balance={account.balance}
+                            balance={account.balance ?? 0}
                             type={account.accountType}
                         />
                     ))

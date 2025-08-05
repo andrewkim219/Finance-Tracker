@@ -1,5 +1,8 @@
 package org.myfinanceapp.financeapp.services;
 
+import org.myfinanceapp.financeapp.models.DTO.UserDTO;
+import org.myfinanceapp.financeapp.handlers.ResourceNotFoundException;
+import org.myfinanceapp.financeapp.mappers.EntityDtoMapper;
 import org.myfinanceapp.financeapp.models.User;
 import org.myfinanceapp.financeapp.repos.UserRepo;
 import org.springframework.stereotype.Service;
@@ -7,27 +10,33 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService {
 
-    UserRepo userRepo;
+    private final UserRepo userRepo;
+    private final EntityDtoMapper mapper;
 
-    public UserService(UserRepo userRepo) {
+    public UserService(UserRepo userRepo, EntityDtoMapper mapper) {
         this.userRepo = userRepo;
+        this.mapper = mapper;
     }
 
-    public User getUserById(Long userId) {
-        if (userRepo.findUserById(userId).isPresent()) {
-            return userRepo.findUserById(userId).get();
-        } else {
-            throw new RuntimeException("User not found with id: " + userId);
-        }
+    public UserDTO getUserById(Long userId) {
+        User user = getUserEntityById(userId);
+        return mapper.toUserDto(user);
     }
 
-    public void addUser(User user) {
+    // Internal method for other services to use
+    public User getUserEntityById(Long userId) {
+        return userRepo.findUserById(userId)
+            .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
+    }
+
+    public void addUser(UserDTO userDTO) {
+        User user = new User();
+        user.setUsername(userDTO.getUsername());
+        user.setEmail(userDTO.getEmail());
+        user.setPassword(userDTO.getPassword());
+
         if (userRepo.findUserByEmail(user.getEmail()).isPresent()) {
             throw new IllegalStateException("Email taken. Use a different email.");
-        }
-
-        if (userRepo.findUserByUsernameAndPassword(user.getUsername(), user.getPassword()).isPresent()) {
-            throw new IllegalStateException("Username already exists. Please choose a different username.");
         }
 
         userRepo.save(user);
@@ -35,23 +44,21 @@ public class UserService {
 
     public void deleteUser(Long userId) {
         if (userRepo.findUserById(userId).isEmpty()) {
-            throw new IllegalStateException("User with id " + userId + " does not exist.");
+            throw new ResourceNotFoundException("User with id " + userId + " does not exist.");
         }
         userRepo.deleteById(userId);
     }
 
-    public void updateUser(User user) {
-        if (userRepo.findUserById(user.getId()).isPresent()) {
-            userRepo.save(user);
-        } else {
-            throw new RuntimeException("User not found with id: " + user.getId());
-        }
+    public void updateUser(UserDTO userDTO) {
+        User existingUser = getUserEntityById(userDTO.getId());
+        existingUser.setUsername(userDTO.getUsername());
+        existingUser.setEmail(userDTO.getEmail());
+        userRepo.save(existingUser);
     }
 
-    public User loginUser(String username, String password) {
-        if (userRepo.findUserByUsernameAndPassword(username, password).isEmpty()) {
-            throw new IllegalArgumentException("Invalid username or password.");
-        }
-        return userRepo.findUserByUsernameAndPassword(username, password).get();
+    public UserDTO loginUser(String username, String password) {
+        User user = userRepo.findUserByUsernameAndPassword(username, password)
+            .orElseThrow(() -> new IllegalArgumentException("Invalid username or password."));
+        return mapper.toUserDto(user);
     }
 }

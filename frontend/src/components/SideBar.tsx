@@ -7,7 +7,6 @@ import { AuthContext } from "../context/AuthContext.tsx";
 export function SideBar() {
     const {setIsAuthenticated, setCurrentUser} = useContext(AuthContext);
 
-
     function handleLogout() {
         setIsAuthenticated(false);
         setCurrentUser(null);
