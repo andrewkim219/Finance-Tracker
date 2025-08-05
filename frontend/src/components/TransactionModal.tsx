@@ -9,14 +9,22 @@ type TransactionModalProps = {
   categories: CategoryType[]; // Categories passed from parent component
 };
 
-function TransactionModal({ onClose, accountId, categories }: TransactionModalProps) {
+function TransactionModal({
+  onClose,
+  accountId,
+  categories,
+}: TransactionModalProps) {
   const [description, setDescription] = useState("");
   const [amount, setAmount] = useState("");
-  const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
-  const [type, setType] = useState<TransactionTypeEnum>(TransactionTypeEnum.EXPENSE);
-  const [selectedAccountId, setSelectedAccountId] = useState<number | undefined>(accountId);
+  const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
+  const [type, setType] = useState<TransactionTypeEnum>(
+    TransactionTypeEnum.EXPENSE,
+  );
+  const [selectedAccountId, setSelectedAccountId] = useState<
+    number | undefined
+  >(accountId);
   const [categoryId, setCategoryId] = useState<number | undefined>(
-    categories.length > 0 ? categories[0].id : undefined
+    categories.length > 0 ? categories[0].id : undefined,
   );
 
   const { addTransaction, isLoading } = useAddTransactionApi();
@@ -121,7 +129,9 @@ function TransactionModal({ onClose, accountId, categories }: TransactionModalPr
               className="w-full p-2 border border-gray-300 rounded-md bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
               required
             />
-            <p className="text-xs text-gray-500 mt-1">Enter the account ID for this transaction</p>
+            <p className="text-xs text-gray-500 mt-1">
+              Enter the account ID for this transaction
+            </p>
           </div>
         )}
 

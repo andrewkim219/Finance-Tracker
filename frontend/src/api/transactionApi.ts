@@ -6,22 +6,21 @@ import type { TransactionType } from "../types/TransactionType.ts";
 import useGetAsync from "../hooks/useGetAsync.ts";
 
 export function useGetAllTransactionsForUserApi() {
-    const { data, isLoading, isError, fetch } = useGetAsync<TransactionType[]>();
+  const { data, isLoading, isError, fetch } = useGetAsync<TransactionType[]>();
 
-    async function fetchAllTransactionsForUserApi(userId: number) {
-        return await fetch(`${API_AUTH_URL}/user/${userId}`);
-    }
+  async function fetchAllTransactionsForUserApi(userId: number) {
+    return await fetch(`${API_AUTH_URL}/user/${userId}`);
+  }
 
-    return { data, isLoading, isError, fetchAllTransactionsForUserApi };
+  return { data, isLoading, isError, fetchAllTransactionsForUserApi };
 }
 
-
 export function useAddTransactionApi() {
-    const { data, isLoading, isError, post } = useCreateAsync<TransactionType>();
+  const { data, isLoading, isError, post } = useCreateAsync<TransactionType>();
 
-    async function addTransaction(transaction: TransactionType) {
-        await post(`${API_AUTH_URL}/add`, transaction);
-    }
+  async function addTransaction(transaction: TransactionType) {
+    await post(`${API_AUTH_URL}/add`, transaction);
+  }
 
-    return { data, isLoading, isError, addTransaction };
+  return { data, isLoading, isError, addTransaction };
 }
