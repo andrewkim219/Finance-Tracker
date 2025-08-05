@@ -1,6 +1,6 @@
 import useCreateAsync from "../hooks/useCreateAsync.ts";
-import type {UserType} from "../types/UserType.ts";
-import type {CredentialsType} from "../types/CredentialsType.ts";
+import type { UserType } from "../types/UserType.ts";
+import type { CredentialsType } from "../types/CredentialsType.ts";
 import useUpdateAsync from "../hooks/useUpdateAsync.ts";
 import useDeleteAsync from "../hooks/useDeleteAsync.ts";
 
@@ -22,7 +22,6 @@ export function useLoginUserApi() {
 
   async function loginUser(credentials: CredentialsType) {
     return await post(`${API_AUTH_URL}/login`, credentials);
-
   }
 
   return { data, isLoading, isError, loginUser };

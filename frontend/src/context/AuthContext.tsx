@@ -14,7 +14,10 @@ interface AppContextProviderProps {
 }
 
 export const AuthContextProvider = ({ children }: AppContextProviderProps) => {
-  const [isAuthenticated, setIsAuthenticated] = useLocalStorage("isAuthenticated", false);
+  const [isAuthenticated, setIsAuthenticated] = useLocalStorage(
+    "isAuthenticated",
+    false,
+  );
   const [currentUser, setCurrentUser] = useLocalStorage("currentUser", null);
 
   const value: AppContextType = {

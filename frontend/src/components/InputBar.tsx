@@ -17,7 +17,7 @@ export function InputBar({ onSubmit, type }: InputBarProps) {
   }
 
   function handleSubmit() {
-      (type === "Register" || type === "Update")
+    type === "Register" || type === "Update"
       ? onSubmit(username, password, email)
       : onSubmit(username, password);
   }

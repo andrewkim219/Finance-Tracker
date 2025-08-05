@@ -6,7 +6,8 @@ import { InputBar } from "../../components/InputBar.tsx";
 
 function LoginPage() {
   const { loginUser } = useLoginUserApi();
-  const { isAuthenticated, setIsAuthenticated, currentUser, setCurrentUser } = useContext(AuthContext);
+  const { isAuthenticated, setIsAuthenticated, currentUser, setCurrentUser } =
+    useContext(AuthContext);
   const navigate = useNavigate();
 
   async function handleLogin(username: string, password: string) {
@@ -23,7 +24,7 @@ function LoginPage() {
   useEffect(() => {
     if (isAuthenticated) {
       navigate("/app/home");
-      console.log(currentUser)
+      console.log(currentUser);
     }
   }, [isAuthenticated]);
 
