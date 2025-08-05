@@ -56,6 +56,7 @@ export function Accounts() {
                     accounts.map((account: AccountType) => (
                         <AccountCard
                             key={account.id}
+                            id={account.id || 0}
                             name={account.accountName}
                             balance={account.balance ?? 0}
                             type={account.accountType}

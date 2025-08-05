@@ -1,4 +1,3 @@
-
 import { Route, Routes } from "react-router-dom";
 import PublicRoute from "./utils/PublicRoute.tsx";
 import PrivateRoute from "./utils/PrivateRoute.tsx";
@@ -11,6 +10,7 @@ import { Settings } from "./pages/private/Settings.tsx";
 import { DashBoard } from "./pages/private/DashBoard.tsx";
 import { Accounts } from "./pages/private/Accounts.tsx";
 import { ModalProvider } from "./context/ModalContext";
+import {Transactions} from "./pages/private/Transactions.tsx";
 
 function App() {
   return (
@@ -28,6 +28,7 @@ function App() {
             <Route path="dashboard" element={<DashBoard />} />
             <Route path="accounts" element={<Accounts />} />
             <Route path="settings" element={<Settings />} />
+            <Route path="transactions/:id" element={<Transactions />}/>
           </Route>
         </Route>
       </Routes>
